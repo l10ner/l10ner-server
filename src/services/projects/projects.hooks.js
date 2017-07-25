@@ -5,7 +5,11 @@ module.exports = {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [],
+    create: [
+      function(hook) {
+        hook.data.owner_id = hook.params.user.id;
+      }
+    ],
     update: [],
     patch: [],
     remove: []

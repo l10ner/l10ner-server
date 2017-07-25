@@ -24,7 +24,10 @@ const app = feathers();
 // Load app configuration
 app.configure(configuration(path.join(__dirname, '..')));
 // Enable CORS, security, compression, favicon and body parsing
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:8080'],
+  credentials: true
+}));
 app.use(helmet());
 app.use(compress());
 app.use(bodyParser.json());

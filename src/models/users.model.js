@@ -15,6 +15,7 @@ module.exports = function (app) {
 
         table.string('email').unique();
         table.string('password');
+        table.timestamp('ctime').defaultTo(Date.now());
       });
     }
   })
