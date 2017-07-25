@@ -16,9 +16,15 @@ module.exports = {
   },
 
   after: {
-    all: [],
+    all: [
+      function(hook) {
+        hook.result.data = hook.result.data.sort((v1, v2) => v2.ctime - v1.ctime);
+      }
+    ],
     find: [],
-    get: [],
+    get: [
+
+    ],
     create: [],
     update: [],
     patch: [],
