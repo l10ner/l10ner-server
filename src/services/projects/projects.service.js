@@ -1,12 +1,12 @@
 // Initializes the `projects` service on path `/projects`
-const createService = require('feathers-knex');
+const createService = require('feathers-sequelize');
 const createModel = require('../../models/projects.model');
 const hooks = require('./projects.hooks');
 const filters = require('./projects.filters');
 
 module.exports = function () {
   const app = this;
-  const Model = createModel(app);
+  const Model = createModel(app.get('sequelize'));
   const paginate = app.get('paginate');
 
   const options = {

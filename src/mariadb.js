@@ -1,9 +1,13 @@
-const knex = require('knex');
+const Sequelize = require('sequelize');
 
-module.exports = function () {
+module.exports = function() {
   const app = this;
-  const { client, connection } = app.get('mariadb');
-  const db = knex({ client, connection });
+  const { client, connection: { user, password, database} } = app.get('mariadb');
 
-  app.set('knexClient', db);
+  const sequelize = new Sequelize(database, user, password, {
+    dialect: client,
+    logging: false
+  });
+
+  app.set('sequelize', sequelize);
 };

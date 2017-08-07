@@ -24,10 +24,11 @@ module.exports = {
 
   after: {
     all: [
-      commonHooks.when(
-        hook => hook.params.provider,
-        commonHooks.discard('password')
-      )
+      // commonHooks.when(
+      //   hook => hook.params.provider,
+      //   commonHooks.discard('password')
+      // ),
+      commonHooks.unless(hook => hook.method === 'find', commonHooks.remove('password')),
     ],
     find: [],
     get: [],

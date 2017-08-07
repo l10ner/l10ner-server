@@ -1,22 +1,34 @@
-/* eslint-disable no-console */
+const Sequelize = require('sequelize');
 
-// projects-model.js - A KnexJS
-//
-// See http://knexjs.org/
-// for more of what you can do here.
+module.exports = function (sequelize) {
+  const project = sequelize.define('projects', {
+    id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    owner_id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    desc: {
+      type: Sequelize.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: true,
+      },
+    },
+  }, {
+    timestamps: true,
+    freezeTableName: true,
+  });
 
-module.exports = function (app) {
-  const db = app.get('knexClient');
+  project.sync();
 
-  db.schema.createTableIfNotExists('projects', table => {
-    table.increments('id');
-    table.string('name').notNullable();
-    table.string('owner_id').notNullable();
-    table.string('desc');
-    table.timestamp('ctime').defaultTo(db.fn.now());
-  })
-  .then(() => console.log('Updated projects table'))
-  .catch(e => console.error('Error updating projects table', e));
-
-  return db;
+  return project;
 };

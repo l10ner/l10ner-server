@@ -1,26 +1,46 @@
-/* eslint-disable no-console */
+const Sequelize = require('sequelize');
 
-// users-model.js - A KnexJS
-//
-// See http://knexjs.org/
-// for more of what you can do here.
-module.exports = function (app) {
-  const db = app.get('knexClient');
+module.exports = function (sequelize) {
+  const user = sequelize.define('users', {
+    id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true,
+      // validate: {
+      //   isEmail: true,
+      // },
+    },
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    name: {
+      type: Sequelize.STRING,
+      allowNull: true,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    isActive: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
+  }, {
+    timestamps: true,
+    freezeTableName: true,
+  });
 
+  user.sync();
 
-  db.schema.hasTable('users').then((exists) => {
-    if (!exists) {
-      return db.schema.createTableIfNotExists('users', table => {
-        table.increments('id');
-
-        table.string('email').unique();
-        table.string('password');
-        table.timestamp('ctime').defaultTo(Date.now());
-      });
-    }
-  })
-  .then(() => console.log('Updated users table'))
-  .catch(e => console.error('Error updating users table', e));
-
-  return db;
+  return user;
 };
