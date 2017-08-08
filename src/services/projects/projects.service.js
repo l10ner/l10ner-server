@@ -6,7 +6,7 @@ const filters = require('./projects.filters');
 
 module.exports = function () {
   const app = this;
-  const Model = createModel(app.get('sequelize'));
+  const Model = createModel(app);
   const paginate = app.get('paginate');
 
   const options = {

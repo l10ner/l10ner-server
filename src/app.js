@@ -15,9 +15,9 @@ const middleware = require('./middleware');
 const services = require('./services');
 const appHooks = require('./app.hooks');
 
-const mariadb = require('./mariadb');
-
 const authentication = require('./authentication');
+
+const sequelize = require('./sequelize');
 
 const app = feathers();
 
@@ -38,7 +38,7 @@ app.use('/', feathers.static(app.get('public')));
 
 // Set up Plugins and providers
 app.configure(hooks());
-app.configure(mariadb);
+app.configure(sequelize);
 app.configure(rest());
 app.configure(socketio());
 

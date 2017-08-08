@@ -6,7 +6,7 @@ module.exports = {
     find: [
       function(hook) {
         hook.params.query = {
-          id: hook.params.user.id
+          owner_id: hook.params.user.id
         };
       }
     ],
