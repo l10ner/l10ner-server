@@ -1,4 +1,3 @@
-// Initializes the `locales` service on path `/locales`
 const createService = require('feathers-sequelize');
 const createModel = require('../../models/locales.model');
 const hooks = require('./locales.hooks');
@@ -10,18 +9,17 @@ module.exports = function () {
   const paginate = app.get('paginate');
 
   const options = {
-    name: 'locales',
     Model,
     paginate
   };
 
-  // Initialize our service with any options it requires
+
   app.use('/locales', createService(options));
 
   // Get our initialized service so that we can register hooks and filters
   const service = app.service('locales');
-
   service.hooks(hooks);
+
 
   if (service.filter) {
     service.filter(filters);

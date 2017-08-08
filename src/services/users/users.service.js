@@ -10,7 +10,6 @@ module.exports = function () {
   const paginate = app.get('paginate');
 
   const options = {
-    name: 'users',
     Model,
     paginate
   };

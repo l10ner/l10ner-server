@@ -4,21 +4,21 @@ const Sequelize = require('sequelize');
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelize');
-  const locales = sequelizeClient.define('locales', {
+  const projectsLocales = sequelizeClient.define('projects_locales', {
     id: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-    key: {
-      type: Sequelize.STRING,
-      allowNull: false,
+    projectId: {
+      type: Sequelize.INTEGER,
+      allowNull: false
     },
-    desc: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
+    localeId: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    }
   }, {
     hooks: {
       beforeCount(options) {
@@ -27,10 +27,11 @@ module.exports = function (app) {
     }
   });
 
-  locales.associate = function (models) { // eslint-disable-line no-unused-vars
+  projectsLocales.associate = function (models) { // eslint-disable-line no-unused-vars
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
   };
 
-  return locales;
+  return projectsLocales;
 };
+
