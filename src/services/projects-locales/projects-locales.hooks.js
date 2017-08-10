@@ -1,18 +1,33 @@
 const { authenticate } = require('feathers-authentication').hooks;
+const commonHooks = require('feathers-hooks-common');
 
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
     find: [
       function(hook) {
-        console.log(hook.params, 'search by projectId in service-locales');
+        commonHooks.setByDot(hook, 'params.query.projectId', hook.params.projectId);
+
+        // return hook;
       }
     ],
     get: [],
     create: [
       function(hook) {
-        console.log(hook.params, 'create locale, pass localeId to params');
-      }
+        const localesService = hook.app.service('locales');
+
+        const data = commonHooks.getItems(hook);
+
+
+        return localesService.create(data, hook.params).then((locale) => {
+          commonHooks.replaceItems(hook, Object.assign(data, {
+            projectId: hook.params.projectId,
+            localeId: locale.id
+          }));
+
+          return hook;
+        });
+      },
     ],
     update: [],
     patch: [],
@@ -21,9 +36,34 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
+    find: [
+      function(hook) {
+        const data = commonHooks.getItems(hook);
+        const localesService = hook.app.service('locales');
+        const ids = data.map(a => a.localeId);
+
+        return localesService.find({
+          query: {
+            id: { $in: ids }
+          }
+        }, hook.params).then((locales) => {
+          commonHooks.replaceItems(hook, locales);
+          return hook;
+        });
+      }
+    ],
     get: [],
-    create: [],
+    create: [
+      function(hook) {
+        const data = commonHooks.getItems(hook);
+        const localesService = hook.app.service('locales');
+
+        return localesService.get(data.localeId, hook.params).then((locale) => {
+          commonHooks.replaceItems(hook, locale);
+          return hook;
+        });
+      }
+    ],
     update: [],
     patch: [],
     remove: []

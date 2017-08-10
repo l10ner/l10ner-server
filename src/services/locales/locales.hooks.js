@@ -1,9 +1,10 @@
-// const { authenticate } = require('feathers-authentication').hooks;
-const commonHooks = require('feathers-hooks-common');
+const { authenticate } = require('feathers-authentication').hooks;
+// const commonHooks = require('feathers-hooks-common');
 
 module.exports = {
   before: {
-    all: [ commonHooks.disallow('external') ],
+    // all: [ commonHooks.disallow('external') ],
+    all: [ authenticate('jwt') ],
     find: [],
     get: [],
     create: [],
