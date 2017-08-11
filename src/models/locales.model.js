@@ -15,7 +15,7 @@ module.exports = function (app) {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    desc: {
+    label: {
       type: Sequelize.STRING,
       allowNull: false,
     },

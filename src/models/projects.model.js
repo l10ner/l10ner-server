@@ -26,6 +26,13 @@ module.exports = function (app) {
         notEmpty: true,
       },
     },
+    default_locale: {
+      type: Sequelize.INTEGER,
+      // allowNull: true,
+      validate: {
+        notEmpty: true,
+      },
+    },
   }, {
     hooks: {
       beforeCount(options) {

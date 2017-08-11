@@ -31,7 +31,17 @@ module.exports = {
       }
     ],
     get: [
+      function(hook) {
+        const projectLocalesService = hook.app.service('projects/:projectId/locales');
 
+        return projectLocalesService.find({
+          query: {
+            projectId: hook.id
+          },
+        }, hook.params).then((locales) => {
+          hook.result = Object.assign(hook.result, { locales });
+        });
+      }
     ],
     create: [],
     update: [],
