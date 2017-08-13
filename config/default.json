@@ -6,15 +6,8 @@
     "default": 10,
     "max": 50
   },
-  "mariadb": {
-    "client": "mysql",
-    "connection": {
-      "host": "127.0.0.1",
-      "user": "root",
-      "password": "zoidberg",
-      "database": "l10ner_server"
-    }
-  },
+
+  "mariadb": "mysql://l10ner:8206153cfaaf8f4d80f4754332a782d69fb7f00c1fc6609be767227a44de5dfa@127.0.0.1:3306/l10ner_server",
   "authentication": {
     "secret": "4be6819a8fa955094e839500d89bac0e29489965a7e5c975d5566541ff39782d0b96163c76bcabf1600bb15de0bca7fc450b8b4e059d33dda5c283547687779f4263a07192ae5881b6c06a15ac6df559f27596d050d6af4ffeed32c74a3e3a45f5d0e4a9e7b6820c10e581f59694e287d378134c25861bde17f3640c90be6aab00ae3227f3112d94f84f431d3874ca76bb29576eb542887fb54309c109d2857e74a0b279e6015d0452daff894af3037f1533fe95391036a312ca553802f1365852299df7e0903d64570e54e43ef667343bcc42fdeea759fa097be8c826c1ca239b4117eba41ff57172daed7e5eefe8d06d8fb58b90eedc87cbb51fe6903a93c8",
     "strategies": [

@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = function (app) {
-  const sequelizeClient = app.get('sequelize');
+  const sequelizeClient = app.get('sequelizeClient');
   const projects = sequelizeClient.define('projects', {
     id: {
       type: Sequelize.INTEGER,
@@ -15,7 +15,7 @@ module.exports = function (app) {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    owner_id: {
+    ownerId: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
@@ -26,7 +26,7 @@ module.exports = function (app) {
         notEmpty: true,
       },
     },
-    default_locale: {
+    defaultLocale: {
       type: Sequelize.INTEGER,
       // allowNull: true,
       validate: {

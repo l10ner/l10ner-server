@@ -6,14 +6,14 @@ module.exports = {
     find: [
       function(hook) {
         hook.params.query = {
-          owner_id: hook.params.user.id
+          ownerId: hook.params.user.id
         };
       }
     ],
     get: [],
     create: [
       function(hook) {
-        hook.data.owner_id = hook.params.payload.userId;
+        hook.data.ownerId = hook.params.payload.userId;
       }
     ],
     update: [],
@@ -33,13 +33,21 @@ module.exports = {
     get: [
       function(hook) {
         const projectLocalesService = hook.app.service('projects/:projectId/locales');
+        const projectDictionariesService = hook.app.service('projects/:projectId/dictionaries');
 
-        return projectLocalesService.find({
-          query: {
-            projectId: hook.id
-          },
-        }, hook.params).then((locales) => {
-          hook.result = Object.assign(hook.result, { locales });
+        return Promise.all([
+          projectLocalesService.find({
+            query: {
+              projectId: hook.id
+            },
+          }, hook.params),
+          projectDictionariesService.find({
+            query: {
+              projectId: hook.id
+            },
+          }, hook.params),
+        ]).then(([locales, dictionaries]) => {
+          hook.result = Object.assign(hook.result, { locales, dictionaries, members: [] });
         });
       }
     ],

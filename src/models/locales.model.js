@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = function (app) {
-  const sequelizeClient = app.get('sequelize');
+  const sequelizeClient = app.get('sequelizeClient');
   const locales = sequelizeClient.define('locales', {
     id: {
       type: Sequelize.INTEGER,

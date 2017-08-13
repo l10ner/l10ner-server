@@ -1,27 +1,8 @@
 const Sequelize = require('sequelize');
 
-// const Sequelize = require('sequelize');
-//
-// module.exports = function() {
-//   const app = this;
-//   const { client, connection: { user, password, database} } = app.get('mariadb');
-//
-//   const sequelize = new Sequelize(database, user, password, {
-//     dialect: client,
-//     logging: false
-//   });
-//
-//   app.set('sequelize', sequelize);
-// };
-
-
-
-
 module.exports = function () {
   const app = this;
-  const { client, connection: { user, password, database} } = app.get('mariadb');
-  const sequelize = new Sequelize(database, user, password, {
-    dialect: client,
+  const sequelize = new Sequelize(app.get('mariadb'), {
     logging: false,
     define: {
       freezeTableName: true
@@ -29,7 +10,7 @@ module.exports = function () {
   });
   const oldSetup = app.setup;
 
-  app.set('sequelize', sequelize);
+  app.set('sequelizeClient', sequelize);
 
   app.setup = function (...args) {
     const result = oldSetup.apply(this, args);
