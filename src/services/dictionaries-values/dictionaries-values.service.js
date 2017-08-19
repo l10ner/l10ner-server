@@ -16,10 +16,10 @@ module.exports = function () {
   };
 
   // Initialize our service with any options it requires
-  app.use('/dictionaries-values', createService(options));
+  app.use('/projects/:projectId/dictionaries/:dictionaryId/locales/:localeId/values', createService(options));
 
   // Get our initialized service so that we can register hooks and filters
-  const service = app.service('dictionaries-values');
+  const service = app.service('projects/:projectId/dictionaries/:dictionaryId/locales/:localeId/values');
 
   service.hooks(hooks);
 
