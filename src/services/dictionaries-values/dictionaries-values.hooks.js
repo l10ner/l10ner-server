@@ -26,7 +26,6 @@ module.exports = {
     get: [],
     create: [
       function(hook) {
-
         const value = {
           value: hook.data.value,
           keyId: hook.data.keyId,
@@ -34,47 +33,20 @@ module.exports = {
           authorId: hook.params.payload.userId,
           comment: hook.data.comment || ''
         };
-        console.log(value, 'VALUES CREATE');
 
         commonHooks.replaceItems(hook, value);
       }
     ],
-    update: [
-      function(hook) {
-        console.log(hook.params, hook.data, 'VALUES UPDATE');
-      }
-    ],
+    update: [],
     patch: [],
     remove: []
   },
 
   after: {
     all: [],
-    find: [
-      // commonHooks.populate({
-      //   schema: {
-      //     include: {
-      //       service: 'projects/:projectId/locales/:localeId/dictionaries/:dictionaryId/keys',
-      //       nameAs: 'key',
-      //       parentField: 'keyId',
-      //       childField: 'id'
-      //     }
-      //   }
-      // })
-    ],
+    find: [],
     get: [],
-    create: [
-      // commonHooks.populate({
-      //   schema: {
-      //     include: {
-      //       service: 'projects/:projectId/locales/:localeId/dictionaries/:dictionaryId/keys',
-      //       nameAs: 'key',
-      //       parentField: 'keyId',
-      //       childField: 'id'
-      //     }
-      //   }
-      // })
-    ],
+    create: [],
     update: [],
     patch: [],
     remove: []

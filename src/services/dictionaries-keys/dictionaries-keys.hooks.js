@@ -28,67 +28,22 @@ module.exports = {
     patch: [],
     remove: [
       function(hook) {
-        // const service = hook.app.service('projects/:projectId/dictionaries/:dictionaryId/locales/:localeId/values');
-        //
-        // console.log(service);
-        // console.log(hook.app.get('sequelizeClient'));
-        // service.destroy({
-        //   where: {
-        //     keyId: hook.id
-        //   }
-        // }).then(r => console.log(r));
-        //   const keys = commonHooks.getItems(hook);
-        console.log(hook, 'delete all values for this key');
+        const service = hook.app.service('projects/:projectId/dictionaries/:dictionaryId/locales/:localeId/values');
+
+        service.remove(null, {
+          query: {
+            keyId: hook.id
+          }
+        });
       }
     ]
   },
 
   after: {
     all: [],
-    find: [
-      // function(hook) {
-      //   if (!hook.params.localeId) return hook;
-      //
-      //   const service = hook.app.service('projects/:projectId/locales/:localeId/dictionaries/:dictionaryId/values');
-      //   const keys = commonHooks.getItems(hook);
-      //
-      //   return service.find({
-      //     query: {
-      //       localeId: hook.params.localeId,
-      //       keyId: { $in: keys.map(k => k.id) },
-      //     },
-      //     paginate: false
-      //   }, hook.params).then((values) => {
-      //     hook.result.data = { keys, values };
-      //     // commonHooks.replaceItems(hook, { keys, values });
-      //   });
-      // },
-
-      // commonHooks.remove('keyId', '_include')
-    ],
+    find: [],
     get: [],
-    create: [
-      // function(hook) {
-      //   const service = hook.app.service('projects/:projectId/locales/:localeId/dictionaries/:dictionaryId/values');
-      //   const key = commonHooks.getItems(hook);
-      //
-      //   // если есть значение, то попутно создаем запись и для значения
-      //   const keyValue = {
-      //     value: hook.data.value,
-      //     keyId: key.id,
-      //     localeId: hook.params.localeId,
-      //     authorId: hook.params.payload.userId,
-      //     comment: hook.data.comment || ''
-      //   };
-      //
-      //
-      //   return service.create(keyValue, hook.params).then((response) => {
-      //     commonHooks.replaceItems(hook, response);
-      //   });
-      //   // return hook;
-      // },
-      // commonHooks.remove('keyId', '_include')
-    ],
+    create: [],
     update: [],
     patch: [],
     remove: []

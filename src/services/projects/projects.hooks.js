@@ -18,7 +18,11 @@ module.exports = {
     ],
     update: [],
     patch: [],
-    remove: []
+    remove: [
+      function(hook) {
+        console.log(hook.id, 'before need delete all relation data');
+      }
+    ]
   },
 
   after: {

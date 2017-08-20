@@ -10,7 +10,11 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [
+      function(hook) {
+        console.log(hook.id, 'before need delete all values from this locale');
+      }
+    ]
   },
 
   after: {

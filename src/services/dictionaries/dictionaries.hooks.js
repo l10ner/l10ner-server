@@ -8,7 +8,11 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [
+      function(hook) {
+        console.log(hook.id, 'before need delete all keys from this dictionary');
+      }
+    ]
   },
 
   after: {
